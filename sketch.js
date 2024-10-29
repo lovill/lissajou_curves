@@ -13,7 +13,7 @@ let pts = [];
 let isLooping = true;  // Variable to track whether draw() is looping
 
 function setup() {
-  createCanvas(600, 600);  
+  createCanvas(windowWidth, windowHeight);  
   background(0, 0, 95); // Off-white background
 
   let dpi = 96;  // Common DPI for screens
@@ -35,9 +35,9 @@ function draw() {
   pts.push(createVector(coords[0], coords[1]));
   t_val += 0.005;
   // a_ampl += 0.01;
-  a_ampl = remap(mouseY, 0, width, 80, 180);
+  a_ampl = remap(mouseY, 0, width, 80, 400);
   // b_ampl += 0.05;
-  b_ampl = remap(mouseY, 0, width, 80, 180);
+  b_ampl = remap(mouseY, 0, width, 80, 400);
   // a_fr += 0.02;
   b_fr += 0.01;
   let test_val = remap(mouseX, 0, width, 1.0, 2.0);
@@ -109,4 +109,8 @@ function mmToPixels(mm, dpi = 96) {
 
 function remap(value, inMin, inMax, outMin, outMax) {
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight); // Automatically adjust canvas size when the window is resized
 }
