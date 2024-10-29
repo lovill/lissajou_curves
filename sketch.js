@@ -13,7 +13,7 @@ let pts = [];
 let isLooping = true;  // Variable to track whether draw() is looping
 
 function setup() {
-  createCanvas(529, 780, SVG);  
+  createCanvas(600, 600);  
   background(0, 0, 95); // Off-white background
 
   let dpi = 96;  // Common DPI for screens
@@ -35,26 +35,32 @@ function draw() {
   pts.push(createVector(coords[0], coords[1]));
   t_val += 0.005;
   // a_ampl += 0.01;
-  b_ampl += 0.05;
+  a_ampl = remap(mouseY, 0, width, 80, 180);
+  // b_ampl += 0.05;
+  b_ampl = remap(mouseY, 0, width, 80, 180);
   // a_fr += 0.02;
   b_fr += 0.01;
-  delta_phase_shift += 0.1
+  let test_val = remap(mouseX, 0, width, 1.0, 2.0);
+  // console.log("test_val", test_val);
+  // console.log(mouseX);
+  delta_phase_shift += 0.05
+  // delta_phase_shift = remap(mouseX, 0, width, 1, 2);
 
 
   // // Translate the origin to the center.
   translate(width/2, height/2);
-  // ellipse(coords[0], coords[1], 1, 1);
-  // rect(coords[0], coords[1], 5, 5);
-  // fill(255, 255, 255, 100);
+  ellipse(coords[0], coords[1], 1, 1);
+  rect(coords[0], coords[1], 10, 10);
+  fill(255, 255, 255, 100);
   stroke(255);
   strokeWeight(0.1);
-  noFill();
+  // noFill();
 
-  beginShape(["line"]);
-  for (let pt of pts) {
-    vertex(pt.x, pt.y);  // Add each point to the shape
-  }
-  endShape();  // Finish the shape
+  // beginShape(["line"]);
+  // for (let pt of pts) {
+  //   vertex(pt.x, pt.y);  // Add each point to the shape
+  // }
+  // endShape();  // Finish the shape
 
   // console.log(coords);
 
@@ -98,4 +104,9 @@ function pixelsToMM(pixels, dpi) {
 
 function mmToPixels(mm, dpi = 96) {
   return (mm * dpi) / 25.4;  // Conversion formula
+}
+
+
+function remap(value, inMin, inMax, outMin, outMax) {
+  return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 }
